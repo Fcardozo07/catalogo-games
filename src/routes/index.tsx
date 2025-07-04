@@ -10,6 +10,8 @@ import { Dashboard, DetalheDeAcessorios, DetalheDeConsoles, DetalheDeJogos,
 
 import { ListaJogos } from "../pages/lista_jogos/ListaJogos";
 import { EditarMarca } from "../pages/lista_marcas/EditarMarca";
+import { TelaLogin } from "../pages/tela_login/Tela_Login";
+import { Tela_Cadastro_User } from "../pages/tela_cadastro_user/Tela_Cadastro_User";
 
 
 export const AppRoutes = () => {
@@ -53,6 +55,8 @@ export const AppRoutes = () => {
 
     return (
         <Routes>
+            <Route path="tela-login" element={<TelaLogin/>}/>
+            <Route path="/cadastro-user" element={<Tela_Cadastro_User/>}/>
             <Route path="/pagina-inicial" element={<Dashboard/>}/>
             <Route path="/lista-jogos" element={<ListaJogos/>}/>
             <Route path="/lista-consoles" element={<ListaConsoles/>}/>
@@ -72,7 +76,7 @@ export const AppRoutes = () => {
             <Route path="/editar-jogo" element={<EditarJogos/>}/> 
             <Route path="/editar-marca" element={<EditarMarca/>}/>
             <Route path="/editar-modelo" element={<EditaModelo/>}/>
-            <Route path="*" element={<Navigate to="/pagina-inicial"/>}/>
+            <Route path="*" element={<Navigate to="/tela-login"/>}/>
 
         </Routes>
     )
