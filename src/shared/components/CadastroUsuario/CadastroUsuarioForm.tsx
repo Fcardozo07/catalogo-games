@@ -14,17 +14,19 @@ export const CadastroUsuarioForm  : React.FC<ICadastroUsuarioFormProps> = ({
   erro,
   setErro,
   onSubmit,
-  //imagem,      
-  //setImagem  
+  imagem,      
+  setImagem  
 }) => {
  const navigate = useNavigate();
 
  return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      onSubmit(); // <-- isso aqui estava faltando!
-    }}>
-          <InputLabel sx={{ fontSize: "20px", fontWeight: "bold", color: '#115669'  }}>Nome</InputLabel>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(imagem); // <-- PASSA A IMAGEM AQUI
+      }}
+    >
+      <InputLabel sx={{ fontSize: "20px", fontWeight: "bold", color: '#115669'  }}>Nome</InputLabel>
          <TextField
             value={nome}
             onChange={(e) => setNome(e.target.value)}
@@ -130,7 +132,30 @@ export const CadastroUsuarioForm  : React.FC<ICadastroUsuarioFormProps> = ({
               {erro}
             </Typography>
           )}
-
+          <FormControl fullWidth margin="normal">
+          <Typography variant="subtitle1"sx={{color: '#115669' }}>Adicionar imagem do usuário:</Typography>
+          <input
+            accept="image/*"
+            id="upload-imagem"
+            type="file"
+            style={{ display: 'none' }}
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                setImagem(e.target.files[0]);
+              }
+            }}
+          />
+          <label htmlFor="upload-imagem">
+            <Button            
+              variant="contained"
+              component="span"
+              startIcon={<Icon>upload</Icon>}
+              fullWidth
+            >
+              Escolher Imagem
+            </Button>
+          </label>
+        </FormControl>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 5, mb:5,  gap:5}}>
             <Button                
               onClick={() => navigate("/tela_login")}

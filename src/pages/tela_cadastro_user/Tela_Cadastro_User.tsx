@@ -1,6 +1,6 @@
 
 import {  Box,  Container, GlobalStyles, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { use, useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CadastroUsuarioForm } from "../../shared/components/CadastroUsuario/CadastroUsuarioForm";
 import { useCadastroUsuarioData } from "../../shared/hooks/Cadastro_Usuario/useCadastroUsuarioData";
@@ -10,6 +10,7 @@ import { useCadastroUsuarioData } from "../../shared/hooks/Cadastro_Usuario/useC
 export const Tela_Cadastro_User = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [imagem, setImagem] = useState<File | null>(null);  
   const navigate = useNavigate();
   
 const{
@@ -53,7 +54,7 @@ const{
       />
 
       
-      <Container maxWidth="sm" sx={{ mt: 20, px: 2, backgroundColor: "rgba(255, 255, 255, 0.8)", borderRadius: 2, boxShadow: 3, padding: 2 }}>
+      <Container maxWidth="sm" sx={{ mt: 7, px: 2, backgroundColor: "rgba(255, 255, 255, 0.8)", borderRadius: 2, boxShadow: 3, padding: 2 }}>
         <Typography
           variant="h4"
           align="center"
@@ -92,9 +93,9 @@ const{
         setSenhaRepetida={setSenhaRepetida}
         erro={erro}
         setErro={setErro}
-        onSubmit={handleCadastrar}
-        // imagem={imagem}          // 👈 adiciona aqui
-        // setImagem={setImagem}  
+        onSubmit={() => handleCadastrar(imagem)} // 👈 passa a imagem aqui
+        imagem={imagem}          // 👈 adiciona aqui
+        setImagem={setImagem}  
         />
       </Container>
     </Box>

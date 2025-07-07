@@ -1,6 +1,7 @@
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import { AppRoutes } from './routes';
 import { AppThemeProvider, DrawerProvider } from './shared/contexts';
+import { ToastContainer } from 'react-toastify';
 import { MenuLateral } from './shared/components';
 
 export const AppContent = () => {
@@ -10,10 +11,12 @@ export const AppContent = () => {
   const showMenu = !noMenuRoutes.includes(location.pathname);
 
   return showMenu ? (
+    
     <MenuLateral>
       <AppRoutes />
     </MenuLateral>
   ) : (
+    
     <AppRoutes />
   );
 };
@@ -24,6 +27,7 @@ export const App = () => {
       <DrawerProvider>
         <BrowserRouter>
           <AppContent />
+          <ToastContainer position="top-right" autoClose={3000} />
         </BrowserRouter>
       </DrawerProvider>
     </AppThemeProvider>

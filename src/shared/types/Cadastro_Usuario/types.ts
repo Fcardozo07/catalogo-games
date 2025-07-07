@@ -9,7 +9,7 @@ export interface ICadastroUsuarioFormProps {
   setSenhaRepetida: (value: string) => void;
   erro: string;
   setErro: (value: string) => void;
-  onSubmit: () => void;
-  //imagem: File | null;
-  //setImagem: (file: File) => void;
+  onSubmit: (fotoFile?: File | null) => Promise<void>;
+  imagem: File | null;
+  setImagem: (file: File) => void;
 }

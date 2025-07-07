@@ -16,8 +16,8 @@ export const LayoutBaseDePaginas: React.FC<LayoutBaseDePaginasProps> = ({ childr
   const { themeName } = useAppThemeContext(); // <- pega o nome do tema atual
 
   const logoSrc = themeName === "dark"
-    ? "/assets/images/bannerEscuro.gif"
-    : "/assets/images/BannerClaro2.gif";
+    ? "/assets/images/_bannerEscuro.gif"
+    : "/assets/images/_BannerClaro2.gif";
 
   const backgroundSrc = themeName === "dark"
     ? "/assets/images/fundoRetro2.jpg"

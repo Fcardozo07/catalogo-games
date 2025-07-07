@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/axios";
+import useFotoUsuarioUpload from "./FotoUsuario/useFotoUsuarioUpload";
+import { toast } from "react-toastify";
 
 
 
@@ -12,9 +14,10 @@ export const useCadastroUsuarioData = (usuarioId: number | string) => {
   const [senhaRepetida, setSenhaRepetida] = useState('');
   const [erro, setErro] = useState('');
   const navigate = useNavigate();
-  //const { uploadFoto } = useFotoUsuarioUpload();
+  const { uploadFoto } = useFotoUsuarioUpload();
 
-  const handleCadastrar = async () => {
+  const handleCadastrar = async (fotofile?: File | null) => {
+
     setErro('');
     if (!nome || !email || !senha || !senhaRepetida) {
       setErro('Todos os campos são obrigatórios.');
@@ -22,6 +25,7 @@ export const useCadastroUsuarioData = (usuarioId: number | string) => {
     }
     if (senha !== senhaRepetida) {
       setErro('As senhas não coincidem.');
+      toast.error('As senhas não coincidem.');
       return;
     }
     try {
@@ -37,6 +41,12 @@ export const useCadastroUsuarioData = (usuarioId: number | string) => {
         const response = await api.post(`/users`, payload);
 
         const usuarioId = response.data.id;
+
+        if (fotofile) {
+            await uploadFoto(usuarioId, fotofile);
+        }
+        
+        toast.success('Usuário cadastrado com sucesso!');
         console.log('Usuário cadastrado com sucesso id:', usuarioId);
         navigate('/tela-login');              
         setNome('');

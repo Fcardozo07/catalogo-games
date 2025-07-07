@@ -1,7 +1,8 @@
 
-import { AppBar, Box, Button, Container, Drawer, GlobalStyles, Icon, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { AppBar, Box, Button, Container,  GlobalStyles,  InputLabel,  TextField, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../shared/hooks/Autenticacao/useAuth";
 
 
 
@@ -13,12 +14,24 @@ export const TelaLogin = () => {
   const [email, setEmail] = useState(""); 
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const {login} = useAuth();
+
   //const {toggleTheme} = useAppThemeContext();
 
   
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = (open: boolean) => () => setDrawerOpen(open);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErro("");
+    if(!email || !senha){
+      setErro("Preencha todos os campos");
+      return;
+    }
+    await login(email, senha);
+  };
 
 
   return(
@@ -69,7 +82,7 @@ export const TelaLogin = () => {
           
         </Box>
 
-        <form onSubmit={() => {}}>
+        <form onSubmit={handleSubmit}>
           <InputLabel sx={{ fontSize: "20px", fontWeight: "bold", color: '#115669'  }}>Login</InputLabel>
          <TextField
             value={email}
@@ -129,8 +142,8 @@ export const TelaLogin = () => {
           )}
 
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-            <Button                
-              onClick={() => navigate("/pagina-inicial")}
+            <Button
+              type="submit"             
               variant="contained"
               fullWidth
               sx={{
