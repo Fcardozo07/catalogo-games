@@ -6,6 +6,8 @@ import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useState } from "react"; 
 import { useAuthContext } from "../../contexts/AuthContext";
+import { FotoUsuario } from "../FotoUsuario/FotoUsuario";
+
 
 
 
@@ -71,12 +73,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
         <>
         <Drawer  open={isDrawerOpen} variant={smdown ? 'temporary' : 'permanent'}  onClose={toggleDrawerOpen}>
             <Box width={theme.spacing(28)} height='100% ' display='flex' flexDirection='column'> 
-                <Box width="100%" height={theme.spacing(28)} display="flex" justifyContent="center" alignItems="center" >
-                    <Avatar 
-                     sx={{height: theme.spacing(15), width: theme.spacing(15)}}
-                     src="assets/images/logo.png"
-                     />
-                </Box> 
+            <FotoUsuario/>
 
                 <Box display="flex" justifyContent="center" alignItems="center" mb={2}>
                     <Typography variant="h6">{user?.nome}</Typography>
