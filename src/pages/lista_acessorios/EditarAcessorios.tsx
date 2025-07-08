@@ -4,6 +4,7 @@ import { LayoutBaseDePaginas } from "../../shared/layouts"
 import { useEffect, useState } from "react";
 import api from "../../shared/services/axios";
 import { Box, Button, Container, Dialog, DialogContent, FormControl, Icon, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { useAuthContext } from "../../shared/contexts/AuthContext";
 
 type Marca = {
     id: number;
@@ -25,6 +26,8 @@ export const EditarAcessorios = () => {
     const navigate = useNavigate(); // aqui é onde o tema é aplicado, ele vai aplicar o tema que está no provider, que é o AppThemeProvider.
     const location = useLocation();
     const acessorio = location.state?.acessorios;
+
+    const { user } = useAuthContext();
     
     const [acessorios, setAcessorios] = useState([]);
     const [marcas, setMarcas] = useState<Marca[]>([]);
@@ -77,6 +80,7 @@ export const EditarAcessorios = () => {
         valor: valor,
         id_marca: marca,
         id_modelo: modelo,
+        id_usuario: user?.id
       };
     
       try {

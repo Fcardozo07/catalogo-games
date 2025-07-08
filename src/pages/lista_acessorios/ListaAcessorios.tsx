@@ -4,13 +4,15 @@ import { LayoutBaseDePaginas } from "../../shared/layouts";
 import api from "../../shared/services/axios";
 import { Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import { useAuthContext } from "../../shared/contexts/AuthContext";
 
 export const ListaAcessorios = () => {
 
     const navigate = useNavigate(); // aqui é onde o tema é aplicado, ele vai aplicar o tema que está no provider, que é o AppThemeProvider.
     const [itens, setItens] = useState<any[]>([]);
     const [textoBusca, setTextoBusca] = useState("");
+
+    const { user } = useAuthContext();
 
     const itensFiltrados = textoBusca.trim()
       ? itens.filter((item) =>
@@ -47,7 +49,7 @@ export const ListaAcessorios = () => {
 
     const getAcessorios = async () => {
         try {
-            const response = await api.get("/acessorios");
+            const response = await api.get("/acessorios", { params: { id_usuario: user?.id } });
             setAcessorios(response.data);
             setItens(response.data);
         } catch (error) {
@@ -55,8 +57,9 @@ export const ListaAcessorios = () => {
         }
     };
     useEffect(() => {
+        if(user?.id)
         getAcessorios();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         async function getData() {
@@ -119,13 +122,14 @@ export const ListaAcessorios = () => {
         <TableContainer component={Paper} variant="outlined" sx={{ m:1, width:'auto'}}>
             <Table>
                 <TableHead>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Tipo</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Marca</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Modelo</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Descrição</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Valor</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} align="center">Açoes</TableCell>
-
+                    <TableRow>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Tipo</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Marca</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Modelo</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Descrição</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main'}}>Valor</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} align="center">Açoes</TableCell>
+                    </TableRow>
                 </TableHead>
 
                 <TableBody>
@@ -141,13 +145,13 @@ export const ListaAcessorios = () => {
                             <TableCell sx={{ fontSize:"20px" }}>{acessorios.descricao}</TableCell>
                             <TableCell sx={{ fontSize:"20px" }}>R${acessorios.valor}</TableCell>
                             <TableCell align="center">
-                                <IconButton onClick={() => navigate("/editar-jogo", { state: { acessorios } })}>
+                                <IconButton onClick={() => navigate("/editar-acessorio", { state: { acessorios } })}>
                                     <Icon fontSize="large" color="primary">edit</Icon>
                                 </IconButton>
                                 <IconButton onClick={() => handleDeletar(acessorios.id)}>
                                     <Icon fontSize="large" color="error">delete</Icon>
                                 </IconButton>
-                                <IconButton onClick={() => navigate("/detalhe-acessorioss", { state: { acessorios } })} >
+                                <IconButton onClick={() => navigate("/detalhe-acessorios", { state: { acessorios } })} >
                                     <Icon fontSize="large" color="secondary">visibility</Icon>
                                 </IconButton>
                             </TableCell>

@@ -3,6 +3,7 @@ import { AppRoutes } from './routes';
 import { AppThemeProvider, DrawerProvider } from './shared/contexts';
 import { ToastContainer } from 'react-toastify';
 import { MenuLateral } from './shared/components';
+import { AuthProvider } from './shared/contexts/AuthContext';
 
 export const AppContent = () => {
   const location = useLocation();
@@ -26,8 +27,10 @@ export const App = () => {
     <AppThemeProvider>
       <DrawerProvider>
         <BrowserRouter>
-          <AppContent />
-          <ToastContainer position="top-right" autoClose={3000} />
+          <AuthProvider>
+            <AppContent />
+            <ToastContainer position="top-right" autoClose={3000} />
+          </AuthProvider>
         </BrowserRouter>
       </DrawerProvider>
     </AppThemeProvider>

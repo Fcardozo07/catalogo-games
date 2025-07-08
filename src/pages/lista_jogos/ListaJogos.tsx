@@ -5,6 +5,9 @@ import api from "../../shared/services/axios";
 import { Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+import { useAuthContext } from "../../shared/contexts/AuthContext";
+
+
 
 export const ListaJogos = () => {
 
@@ -12,6 +15,9 @@ const navigate = useNavigate(); // aqui é onde o tema é aplicado, ele vai apli
 
 const [itens, setItens] = useState<any[]>([]);
 const [textoBusca, setTextoBusca] = useState("");
+
+
+const { user } = useAuthContext();
 
 const itensFiltrados = textoBusca.trim()
   ? itens.filter((item) =>
@@ -52,7 +58,7 @@ const itensFiltrados = textoBusca.trim()
 
       const getJogos = async () => {
             try {
-                const response = await api.get("/jogos");
+                const response = await api.get("/jogos", { params: { id_usuario: user?.id } });
                 setJogos(response.data);
                 setItens(response.data);
             } catch (error) {
@@ -61,8 +67,10 @@ const itensFiltrados = textoBusca.trim()
             };
 
             useEffect(() => {
+            if(user?.id){
             getJogos();
-            }, []);
+            }
+            }, [user]);
 
         useEffect(() => {
             async function getData() {
@@ -133,8 +141,7 @@ const itensFiltrados = textoBusca.trim()
                         <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Modelo</TableCell>
                         <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Descrição</TableCell>
                         <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Valor</TableCell>
-                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} align="center">Açoes</TableCell>
-                  
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} align="center">Açoes</TableCell>                  
                     </TableRow>
 
                 </TableHead>

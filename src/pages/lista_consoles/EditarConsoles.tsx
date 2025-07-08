@@ -4,6 +4,7 @@ import api from "../../shared/services/axios";
 import { LayoutBaseDePaginas } from "../../shared/layouts";
 import { Box, Button, Container, Dialog, DialogContent, FormControl, Icon, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { FerramentasDeDetalhe } from "../../shared/components";
+import { useAuthContext } from "../../shared/contexts/AuthContext";
 
 type Marca = {
     id: number;
@@ -22,7 +23,7 @@ type Marca = {
   
 export const EditarConsoles = () => {
     const location = useLocation();
-    
+     const { user } = useAuthContext();
     
     const [consoles, setConsoles] = useState([]);
     const [marcas, setMarcas] = useState<Marca[]>([]);
@@ -77,6 +78,7 @@ export const EditarConsoles = () => {
           valor: valor,
           id_marca: marca,
           id_modelo: modelo,
+          id_usuario: user?.id
         };
         
         try {

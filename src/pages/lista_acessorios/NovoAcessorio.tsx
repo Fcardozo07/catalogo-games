@@ -15,6 +15,8 @@ import {
   import { useNavigate } from "react-router-dom";
   import { useEffect, useState } from "react";
   import api from "../../shared/services/axios";
+
+  import { useAuthContext } from "../../shared/contexts/AuthContext";
   
   interface IItem {
     id: string;
@@ -25,6 +27,7 @@ import {
   export const NovoAcessorio = () => {
     const navigate = useNavigate();
   
+    const { user } = useAuthContext();
   
     const [descricao, setDescricao] = useState("");
     const [valor, setValor] = useState(0);
@@ -52,6 +55,7 @@ import {
         id_marca,
         id_modelo,
         id_console: id_console || null, 
+        id_usuario: user?.id
       };
   
       try {
@@ -84,10 +88,6 @@ import {
         console.error("Erro ao carregar imagens:", error);
       }
     };
-
-    
-  
-  
 
     const handleUploadImagem = async () => {
       if (!imagem || !idAcessorioCriado) return;

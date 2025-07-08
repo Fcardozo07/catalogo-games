@@ -1,8 +1,9 @@
 
-import { AppBar, Box, Button, Container,  GlobalStyles,  InputLabel,  TextField, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Container,  GlobalStyles,  InputLabel,  TextField, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../shared/hooks/Autenticacao/useAuth";
+import { useAuthContext } from "../../shared/contexts/AuthContext";
+
 
 
 
@@ -14,7 +15,7 @@ export const TelaLogin = () => {
   const [email, setEmail] = useState(""); 
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
-  const {login} = useAuth();
+  const {login} = useAuthContext();
 
   //const {toggleTheme} = useAppThemeContext();
 

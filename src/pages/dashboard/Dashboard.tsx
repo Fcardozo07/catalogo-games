@@ -9,8 +9,8 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { Button, Icon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { GraficoResumo } from "../../shared/components/Grafics/GraficoResumoBarras";
 import { GraficoPizzaItens } from "../../shared/components/Grafics/GraficoPizzaItens";
+import { useAuthContext } from "../../shared/contexts/AuthContext";
 
 const fabricantes: { [key: string]: { nome: string; icone: string } } = {
   nintendo: {
@@ -89,7 +89,9 @@ export const Dashboard = () => {
   const [fotosConsoleMaisCaro, setFotoConsoleMaisCaro] = useState<{ [id: number]: string }>({});
   const [fotosAcessorioMaisCaro, setFotoAcessorioMaisCaro] = useState<{ [id: number]: string }>({});
   const [modelos, setModelos] = useState<{ id: number; descricao: string }[]>([]);
-    const [descricaoModelo, setDescricaoModelo] = useState(null);
+  const [descricaoModelo, setDescricaoModelo] = useState(null);
+  const { user } = useAuthContext();
+  
 
 
     const navigate = useNavigate();
@@ -99,9 +101,9 @@ export const Dashboard = () => {
   const buscarDadosDashboard = async () => {
     try {
       const [resJogos, resConsoles, resAcessorios] = await Promise.all([
-        api.get("/jogos"),
-        api.get("/consoles"),
-        api.get("/acessorios"),
+        api.get("/jogos", { params: { id_usuario: user?.id } }),
+        api.get("/consoles", { params: { id_usuario: user?.id } }),
+        api.get("/acessorios", { params: { id_usuario: user?.id } }),
       ]);
 
       // Helpers
@@ -145,7 +147,7 @@ export const Dashboard = () => {
       if (!jogoMaisCaro) return;
   
       try {
-        const response = await api.get(`/fotosJogos/jogo/${jogoMaisCaro.id}`);
+        const response = await api.get(`/fotosJogos/jogo/${jogoMaisCaro.id}`,{params:{id_usuario: user?.id}});
         const baseUrl = 'http://localhost:3003/uploads/';
         if (response.data.length > 0) {
           setFotoJogoMaisCaro({
@@ -166,7 +168,7 @@ export const Dashboard = () => {
       if (!consoleMaisCaro) return;
   
       try {
-        const response = await api.get(`/fotosConsole/console/${consoleMaisCaro.id}`);
+        const response = await api.get(`/fotosConsole/console/${consoleMaisCaro.id}`,{params:{id_usuario: user?.id}});
         const baseUrl = 'http://localhost:3003/uploads/';
         if (response.data.length > 0) {
           setFotoConsoleMaisCaro({
@@ -186,7 +188,7 @@ export const Dashboard = () => {
       if (!acessorioMaisCaro) return;
   
       try {
-        const response = await api.get(`/fotosAcessorios/acessorio/${acessorioMaisCaro.id}`);
+        const response = await api.get(`/fotosAcessorios/acessorio/${acessorioMaisCaro.id}`,{params:{id_usuario: user?.id}});
         const baseUrl = 'http://localhost:3003/uploads/';
         if (response.data.length > 0) {
           setFotoAcessorioMaisCaro({
@@ -206,7 +208,7 @@ export const Dashboard = () => {
           if (!consoleMaisCaro?.id_modelo) return;
 
           try {
-            const response = await api.get(`/modelos/${consoleMaisCaro.id_modelo}`);
+            const response = await api.get(`/modelos/${consoleMaisCaro.id_modelo}`,{params:{id_usuario: user?.id}});
             setDescricaoModelo(response.data.descricao);
             setModelos([response.data]); // Mantendo modelos como array
           } catch (error) {

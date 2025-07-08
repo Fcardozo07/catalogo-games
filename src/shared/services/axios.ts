@@ -5,10 +5,10 @@ const api = axios.create({
   baseURL: Environment.URL_BASE, // porta do seu backend
 });
 
-//adiciona token em todas as requisições
+// Antes de cada request, adiciona token se existir
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) {
+  if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;

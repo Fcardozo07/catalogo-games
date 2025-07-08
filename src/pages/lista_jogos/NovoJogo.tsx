@@ -7,6 +7,7 @@ import api from "../../shared/services/axios";
 import { LayoutBaseDePaginas } from "../../shared/layouts";
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { Box, Button, Container, FormControl, Icon, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { useAuthContext } from "../../shared/contexts/AuthContext";
 
 interface IItem {
     id: string;
@@ -18,6 +19,8 @@ interface IItem {
 
 export const NovoJogo = () => {
     const navigate = useNavigate();
+    
+    const { user } = useAuthContext();
     
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
@@ -46,6 +49,7 @@ export const NovoJogo = () => {
         valor,
         id_marca,
         id_modelo,
+        id_usuario:user?.id
         };
     
         try {

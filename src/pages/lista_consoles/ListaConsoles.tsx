@@ -5,11 +5,15 @@ import api from "../../shared/services/axios";
 import { Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+import { useAuthContext } from "../../shared/contexts/AuthContext";
+
 
 export const ListaConsoles = () => {
 
     const [itens, setItens] = useState<any[]>([]);
     const [textoBusca, setTextoBusca] = useState("");
+
+    const { user } = useAuthContext();
 
     const navigate = useNavigate(); // aqui é onde o tema é aplicado, ele vai aplicar o tema que está no provider, que é o AppThemeProvider.
     interface Console {
@@ -41,16 +45,19 @@ export const ListaConsoles = () => {
 
     const getConsoles = async () => {
         try {
-            const response = await api.get("/consoles");
+            const response = await api.get("/consoles", { params: { id_usuario: user?.id } });
             setConsoles(response.data);
             setItens(response.data);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
         }
     };
-    useEffect(() => {
-        getConsoles();
-    }, []);
+   useEffect(() => {
+  if (user?.id) {
+    getConsoles();
+  }
+}, [user]);
+
      // Definindo as interfaces para os dados que serão utilizados     
       
 
@@ -118,12 +125,14 @@ export const ListaConsoles = () => {
         <TableContainer component={Paper} variant="outlined" sx={{ m:1, width:'auto'}}>
             <Table>
                 <TableHead>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Tipo</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Marca</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} >Modelo</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Descrição</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Valor</TableCell>
-                    <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} align="center">Açoes</TableCell>
+                    <TableRow>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Tipo</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Marca</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} >Modelo</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Descrição</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }}>Valor</TableCell>
+                        <TableCell sx={{ fontSize: 25, fontWeight: 'bold', color: 'secondary.main' }} align="center">Açoes</TableCell>
+                    </TableRow>
                  </TableHead>
 
                 <TableBody>
@@ -139,7 +148,7 @@ export const ListaConsoles = () => {
                 <TableCell sx={{ fontSize:"20px" }}>{console.descricao}</TableCell>
                 <TableCell sx={{ fontSize:"20px" }}>R$ {console.valor}</TableCell>
                 <TableCell align="center">
-                  <IconButton onClick={() => navigate("/editar-jogo", { state: { console } })}>
+                  <IconButton onClick={() => navigate("/editar-console", { state: { console } })}>
                       <Icon fontSize="large" color="primary">edit</Icon>
                   </IconButton>
                   <IconButton onClick={() => handledeletar(console.id)}>

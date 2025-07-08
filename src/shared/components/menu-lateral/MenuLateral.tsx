@@ -1,9 +1,13 @@
 
 import { Avatar, Box, Collapse, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme} from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, Logout } from "@mui/icons-material";
 import { useAppThemeContext, useDrawerContext } from "../../contexts";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useState } from "react"; 
+import { useAuthContext } from "../../contexts/AuthContext";
+
+
 
 interface IMenuLateralProps {
     children?: React.ReactNode;
@@ -46,7 +50,7 @@ return(
 };
 
 export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
-
+     const {logout, user} = useAuthContext();
     const theme = useTheme();
     const smdown = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -57,6 +61,8 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
 
     const handleToggleAreaAdm = () => {
         setIsAreaAdemOpen(!isAreaAdmOpen);
+
+   
        
 };
 
@@ -71,6 +77,10 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
                      src="assets/images/logo.png"
                      />
                 </Box> 
+
+                <Box display="flex" justifyContent="center" alignItems="center" mb={2}>
+                    <Typography variant="h6">{user?.nome}</Typography>
+                </Box>
 
                 <Divider/>          
                 
@@ -132,6 +142,16 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
                     <Icon>dark_mode</Icon>
                 </ListItemIcon>
                 <ListItemText primary="Alternar Tema" />
+                </ListItemButton>
+                </List>
+               </Box>
+              <Box>
+                <List component="nav">
+                <ListItemButton onClick={logout}>
+                <ListItemIcon>
+                    <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary="Sair" />
                 </ListItemButton>
                 </List>
                </Box>

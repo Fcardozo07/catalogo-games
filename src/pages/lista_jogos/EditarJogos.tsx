@@ -5,6 +5,7 @@ import { LayoutBaseDePaginas } from "../../shared/layouts";
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { Box, Button, Container, Dialog, DialogContent, FormControl, Icon, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useAuthContext } from "../../shared/contexts/AuthContext";
 
 type Marca = {
     id: number;
@@ -22,6 +23,8 @@ type Marca = {
 };
 
 export const EditarJogos = () => {
+
+    const { user } = useAuthContext();
 
     const location = useLocation();
     const jogo = location.state?.jogo;
@@ -75,6 +78,7 @@ export const EditarJogos = () => {
             valor: valor,         
             id_marca: marca,
             id_modelo: modelo,
+            id_usuario: user?.id
         };
         
         try {

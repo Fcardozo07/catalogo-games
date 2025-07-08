@@ -4,6 +4,7 @@ import api from "../../shared/services/axios";
 import { LayoutBaseDePaginas } from "../../shared/layouts";
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { Box, Button, Container, Dialog, DialogContent, FormControl, Icon, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { useAuthContext } from "../../shared/contexts/AuthContext";
 
 
 interface IItem {
@@ -32,6 +33,8 @@ export const NovoConsole = () => {
   const [imagemSelecionada, setImagemSelecionada] = useState<string | null>(null);
   const [openModal, setOpenModal] = useState(false);
 
+  const { user } = useAuthContext();
+
 
   const criarConsole = async () => {
     const newConsole = {
@@ -40,6 +43,7 @@ export const NovoConsole = () => {
       id_marca,
       id_modelo,
       tipo,
+      id_usuario: user?.id
     };
   
     try {
@@ -48,6 +52,7 @@ export const NovoConsole = () => {
       setIdConsoleCriado(id);
       alert("Console criado com sucesso!");
       setBotaoSalvarDesabilitado(true);
+      console.log("item criado para o id_usuario: ", user?.id )
       // NÃO navega automaticamente mais aqui
     } catch (error) {
       console.log("Erro ao criar console:", error);
