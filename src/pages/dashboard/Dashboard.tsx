@@ -139,7 +139,7 @@ export const Dashboard = () => {
   };
 
   buscarDadosDashboard();
-}, []);
+}, [user]);
 
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 
-import { Avatar, Box, Collapse, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme} from "@mui/material";
+import { Avatar, Box, Collapse, Divider, Drawer, Icon, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme} from "@mui/material";
 import { ExpandLess, ExpandMore, Logout } from "@mui/icons-material";
 import { useAppThemeContext, useDrawerContext } from "../../contexts";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
@@ -29,10 +29,10 @@ const ListItemLink: React.FC<IMenuLateralItemProps> = ({to, icon, label, onClick
 
 
 const navigate = useNavigate();   
-
+  const {logout, user} = useAuthContext();
 const resolvedPath = useResolvedPath(to);
 const match = useMatch({path: resolvedPath.pathname, end: false});
-
+ 
 
 const handelClick = () => {
     navigate(to);
@@ -52,9 +52,12 @@ return(
 };
 
 export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
-     const {logout, user} = useAuthContext();
+    const {logout, user} = useAuthContext();
+    const isAdmin = user?.perfil ==="adm";
     const theme = useTheme();
     const smdown = useMediaQuery(theme.breakpoints.down('sm'));
+    
+    const navigate = useNavigate();     
 
     const {isDrawerOpen, toggleDrawerOpen, drawerOptions} = useDrawerContext();
     const {toggleTheme} = useAppThemeContext();
@@ -65,7 +68,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
         setIsAreaAdemOpen(!isAreaAdmOpen);
 
    
-       
+
 };
 
     return(
@@ -78,7 +81,25 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
                 <Box display="flex" justifyContent="center" alignItems="center" mb={2}>
                     <Typography variant="h6">{user?.nome}</Typography>
                 </Box>
+                                <Box display="flex" justifyContent="center">
+                    <IconButton  
+                        onClick={() => {
+                            navigate('/editar-user');
+                            if (smdown) {
+                                toggleDrawerOpen();
+                            }
+                        }}                                       
+                        sx={{marginBottom: theme.spacing(2)}}
+                        color="primary"
+                        aria-label="Alterar Perfil"
+                    >
+                        <Icon>edit</Icon>
+                        <Typography>
+                            Alterar Perfil
+                        </Typography>
+                    </IconButton>
 
+                </Box>
                 <Divider/>          
                 
                <Box flex={1}>
@@ -95,42 +116,36 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
                 ))}
 
                 </List>
-                <ListItemButton onClick={handleToggleAreaAdm}>
-                <ListItemIcon>
-                    <Icon>admin_panel_settings</Icon>
-                </ListItemIcon>
-               
-                <ListItemText  primary="Área Adm"/>
-            
-               
-                
-                
-                {isAreaAdmOpen ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
+                {isAdmin && (
+                <>
+                    <ListItemButton onClick={handleToggleAreaAdm}>
+                    <ListItemIcon>
+                        <Icon>admin_panel_settings</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="Área Adm" />
+                    {isAreaAdmOpen ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
 
-                <Collapse in={isAreaAdmOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
+                    <Collapse in={isAreaAdmOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItemLink
+                        to="/lista-marcas"
+                        icon="label"
+                        label="Cadastro de Marcas"
+                        onClick={smdown ? toggleDrawerOpen : undefined}
+                        />
+                        <ListItemLink
+                        to="/lista-modelos"
+                        icon="category"
+                        label="Cadastro de Modelos"
+                        onClick={smdown ? toggleDrawerOpen : undefined}
+                        />
+                    </List>
+                    </Collapse>
+                </>
+                )}
 
-                    <ListItemLink
-                    to="/lista-marcas"
-                    icon="label" // ícone que você quiser
-                    label="Cadastro de Marcas"
-                    onClick={smdown ? toggleDrawerOpen : undefined}
-                    />
-
-                    <ListItemLink
-                    to="/lista-modelos"
-                    icon="category" // ícone que você quiser
-                    label="Cadastro de Modelos"
-                    onClick={smdown ? toggleDrawerOpen : undefined}
-                    />
-
-                </List>
-                </Collapse>
                </Box>
-
-
-
 
                <Box>
                 <List component="nav">

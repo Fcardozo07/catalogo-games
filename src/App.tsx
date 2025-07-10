@@ -4,20 +4,19 @@ import { AppThemeProvider, DrawerProvider } from './shared/contexts';
 import { ToastContainer } from 'react-toastify';
 import { MenuLateral } from './shared/components';
 import { AuthProvider } from './shared/contexts/AuthContext';
+import { FotoUsuarioProvider } from './shared/contexts/FotoUsuarioContext';
 
 export const AppContent = () => {
   const location = useLocation();
-  const noMenuRoutes = ['/tela-login', "/cadastro-user" ]; // ajuste para sua rota de login
+  const noMenuRoutes = ['/tela-login', "/cadastro-user"];
 
   const showMenu = !noMenuRoutes.includes(location.pathname);
 
   return showMenu ? (
-    
     <MenuLateral>
       <AppRoutes />
     </MenuLateral>
   ) : (
-    
     <AppRoutes />
   );
 };
@@ -28,8 +27,10 @@ export const App = () => {
       <DrawerProvider>
         <BrowserRouter>
           <AuthProvider>
-            <AppContent />
-            <ToastContainer position="top-right" autoClose={3000} />
+            <FotoUsuarioProvider>
+              <AppContent />
+              <ToastContainer position="top-right" autoClose={3000} />
+            </FotoUsuarioProvider>
           </AuthProvider>
         </BrowserRouter>
       </DrawerProvider>

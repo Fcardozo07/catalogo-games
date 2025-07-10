@@ -16,8 +16,8 @@ export const LayoutBaseDePaginas: React.FC<LayoutBaseDePaginasProps> = ({ childr
   const { themeName } = useAppThemeContext(); // <- pega o nome do tema atual
 
   const logoSrc = themeName === "dark"
-    ? "/assets/images/_bannerEscuro.gif"
-    : "/assets/images/_BannerClaro2.gif";
+    ? "/assets/images/bannerEscuro.gif"
+    : "/assets/images/BannerClaro2.gif";
 
   const backgroundSrc = themeName === "dark"
     ? "/assets/images/fundoRetro2.jpg"
@@ -88,9 +88,19 @@ export const LayoutBaseDePaginas: React.FC<LayoutBaseDePaginasProps> = ({ childr
 
         </Box>     
        {barraDeFerramentas && <Box>{barraDeFerramentas}</Box>} 
-      <Box flex={1} overflow="auto">
-        {children}
-      </Box>
+        <Box
+          flex={1}
+          overflow="auto"
+          sx={{
+            overflowX: "hidden",
+            "&::-webkit-scrollbar": { display: "none" }, // esconde a barra no Chrome
+            scrollbarWidth: "none", // esconde no Firefox
+          }}
+        >
+          {children}
+        </Box>
+
+
     </Box>
     </>
   );

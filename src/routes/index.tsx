@@ -12,6 +12,8 @@ import { ListaJogos } from "../pages/lista_jogos/ListaJogos";
 import { EditarMarca } from "../pages/lista_marcas/EditarMarca";
 import { TelaLogin } from "../pages/tela_login/Tela_Login";
 import { Tela_Cadastro_User } from "../pages/tela_cadastro_user/Tela_Cadastro_User";
+import { TelaEditarUser } from "../pages/TelaEditaUser/TelaEditarUser";
+import ProtectedRoute from "../shared/midlleware/ProtectedRoute";
 
 
 export const AppRoutes = () => {
@@ -55,8 +57,19 @@ export const AppRoutes = () => {
 
     return (
         <Routes>
+
+            <Route element={<ProtectedRoute/>}>
+                <Route path="/nova-marca" element={<NovaMarca/>}/>
+                <Route path="/novo-modelo" element={<NovoModelo/>}/>
+                <Route path="/lista-marcas" element={<ListaMarcas/>}/>         
+                <Route path="/lista-modelos" element={<ListaModelos/>}/>
+                <Route path="/editar-marca" element={<EditarMarca/>}/>
+                <Route path="/editar-modelo" element={<EditaModelo/>}/>     
+            </Route>
+
             <Route path="tela-login" element={<TelaLogin/>}/>
             <Route path="/cadastro-user" element={<Tela_Cadastro_User/>}/>
+            <Route path='/editar-user' element={<TelaEditarUser/>}/>
             <Route path="/pagina-inicial" element={<Dashboard/>}/>
             <Route path="/lista-jogos" element={<ListaJogos/>}/>
             <Route path="/lista-consoles" element={<ListaConsoles/>}/>
@@ -68,14 +81,10 @@ export const AppRoutes = () => {
             <Route path="/detalhe-acessorios" element={<DetalheDeAcessorios/>}/>
             <Route path="/novo-acessorio" element={<NovoAcessorio/>}/> 
             <Route path="/novo-console" element={<NovoConsole/>}/>
-            <Route path="/novo-jogo" element={<NovoJogo/>}/>
-            <Route path="/nova-marca" element={<NovaMarca/>}/>
-            <Route path="/novo-modelo" element={<NovoModelo/>}/>         
+            <Route path="/novo-jogo" element={<NovoJogo/>}/>       
             <Route path="/editar-acessorio" element={<EditarAcessorios/>}/>
             <Route path="/editar-console" element={<EditarConsoles/>}/>
-            <Route path="/editar-jogo" element={<EditarJogos/>}/> 
-            <Route path="/editar-marca" element={<EditarMarca/>}/>
-            <Route path="/editar-modelo" element={<EditaModelo/>}/>
+            <Route path="/editar-jogo" element={<EditarJogos/>}/>
             <Route path="*" element={<Navigate to="/tela-login"/>}/>
 
         </Routes>

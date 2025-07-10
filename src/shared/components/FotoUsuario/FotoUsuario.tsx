@@ -1,5 +1,6 @@
 import { Avatar, Box, IconButton, Skeleton, useTheme, Icon } from "@mui/material";
 import { useFotoUsuarioContext } from "../../contexts/FotoUsuarioContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 interface FotoUsuarioProps {
   
@@ -9,7 +10,8 @@ interface FotoUsuarioProps {
 export const FotoUsuario: React.FC<FotoUsuarioProps> = ({ onDeleteFoto }) => {
   const theme = useTheme();
   const { fotoUrl } = useFotoUsuarioContext();
-
+    const { user } = useAuthContext();
+    console.log("Usuário no contexto:", user);
 
   return (
     <Box
