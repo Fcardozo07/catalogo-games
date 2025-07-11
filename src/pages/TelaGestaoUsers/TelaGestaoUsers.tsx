@@ -2,8 +2,6 @@ import { FerramentasDeDetalhe } from '../../shared/components';
 import {TablleUsers} from '../../shared/components/GestaoUsers/TableUsers'
 import { LayoutBaseDePaginas } from '../../shared/layouts';
 
-
-
 const TelaGestaoUsers = () =>{
     return(
         <>
@@ -18,7 +16,7 @@ const TelaGestaoUsers = () =>{
         />}
 
         >
-             <TablleUsers/> 
+        <TablleUsers/> 
         </LayoutBaseDePaginas>
         <TablleUsers/> 
         </>

@@ -1,23 +1,15 @@
 import { Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useListaAcessoriosData } from "../../hooks/lista_acessorios/useListaAcessoriosData";
 import { useNavigate } from "react-router-dom";
+import { ITableAcessoriosProps } from "../../types/lista_acessorios/types";
 
 
 
-export const TableAssessorios: React.FC = () => {
+export const TableAssessorios: React.FC<ITableAcessoriosProps> = (
+    {itensFiltrados, marcas, modelos, handledeletar}
+) => {
 
-    const{
-            acessorios,
-            marcas,
-            modelos,
-            itens,
-            getAcessorios,
-            handleDeletar,
-            textoBusca,
-            setTextoBusca,
-            itensFiltrados 
-
-    } = useListaAcessoriosData();
+    const hook = useListaAcessoriosData();
 
     const navigate = useNavigate(); 
 
@@ -52,7 +44,7 @@ export const TableAssessorios: React.FC = () => {
                                 <IconButton onClick={() => navigate("/editar-acessorio", { state: { acessorios } })}>
                                     <Icon fontSize="large" color="primary">edit</Icon>
                                 </IconButton>
-                                <IconButton onClick={() => handleDeletar(acessorios.id)}>
+                                <IconButton onClick={() => handledeletar(acessorios.id)}>
                                     <Icon fontSize="large" color="error">delete</Icon>
                                 </IconButton>
                                 <IconButton onClick={() => navigate("/detalhe-acessorios", { state: { acessorios } })} >

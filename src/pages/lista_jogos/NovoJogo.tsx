@@ -8,12 +8,9 @@ import { LayoutBaseDePaginas } from "../../shared/layouts";
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { Box, Button, Container, FormControl, Icon, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useAuthContext } from "../../shared/contexts/AuthContext";
+import { IItem } from "../../shared/types/lista_consoles/types";
 
-interface IItem {
-    id: string;
-    descricao: string;
-    id_marca: string;
-  }
+
 
   
 
@@ -29,7 +26,6 @@ export const NovoJogo = () => {
     const [id_modelo, setModelo] = useState("");
     const [botaoSalvarDesabilitado, setBotaoSalvarDesabilitado] = useState(false);
     
- 
     
     // Dados vindos da API
     const [marcas, setMarcas] = useState<IItem[]>([]);
@@ -37,9 +33,6 @@ export const NovoJogo = () => {
     const [idJogoCriado, setIdJogoCriado] = useState<string | null>(null);
     const [fotos, setFotos] = useState<string[]>([]);
     const [imagem, setImagem] = useState<File | null>(null);
-    
-    
-   
     
     
     const criarJogo = async () => {

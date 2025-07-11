@@ -10,8 +10,6 @@ export const ListaAcessorios = () => {
 
     const navigate = useNavigate();
 
-    
-
     return (
         <LayoutBaseDePaginas
         titulo="Lista de Acessórios"
@@ -24,7 +22,12 @@ export const ListaAcessorios = () => {
         aoMudarTextoDeBusca={hook.setTextoBusca}
         />}
         >
-        <TableAssessorios/>
+        <TableAssessorios
+        itensFiltrados={hook.itensFiltrados}
+        marcas={hook.marcas}
+        modelos={hook.modelos}
+        handledeletar={hook.handleDeletar}
+        />
         </LayoutBaseDePaginas>
     );
 };

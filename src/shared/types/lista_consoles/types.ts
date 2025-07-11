@@ -1,5 +1,35 @@
-export interface IFormEditarAcessoriosProps {
+export interface Console {
+  id: number;
+  tipo: string;
+  id_marca: number;
+  id_modelo: number;
+  descricao: string;
+  valor: number;
+}
+
+export interface Marca {
+  id: number;
+  descricao: string;
+}
+
+export interface Modelo {
+  id: number;
+  id_marca: number;
+  descricao: string;
+  
+}
+
+export interface ITableConsolesProps {
+  itensFiltrados: any[];
+  marcas: any[];
+  modelos: any[];
+  handledeletar: (id: number) => void;
+}
+
+export interface IFormEditarConsoleProps {
   nome: string;
+  tipo: string;
+  setTipo: React.Dispatch<React.SetStateAction<string>>;
   setNome: React.Dispatch<React.SetStateAction<string>>;
   descricao: string;
   setDescricao: React.Dispatch<React.SetStateAction<string>>;
@@ -22,7 +52,8 @@ export interface IFormEditarAcessoriosProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export interface IFormNovoAcessorioProps {
+
+export interface IFormNovoConsoleProps {
   descricao: string;
   setDescricao : React.Dispatch<React.SetStateAction<string>>;
   valor: number;
@@ -45,45 +76,20 @@ export interface IFormNovoAcessorioProps {
   setImagem: React.Dispatch<React.SetStateAction<File | null>>;
   handleUploadImagem: () => void;
   handleSalvarEVoltar: () => void;
-  idAcessorioCriado: string | null;
-  setIdAcessorioCriado: React.Dispatch<React.SetStateAction<string | null>>;
-  criarAcessorio: () => void;
+  idConsoleCriado: string | null;
+  setIdConsoleCriado: React.Dispatch<React.SetStateAction<string | null>>;
+  criarConsole: () => void;
   carregarImagens: () => void;  
 
 }
 
-export interface ITableAcessoriosProps {
-  itensFiltrados: any[];
-  marcas: any[];
-  modelos: any[];
-  handledeletar: (id: number) => void;
-}
-
-
-  export interface Acessorio {
-    id: number;
-    tipo: string;
-    id_marca: number;
-    id_modelo: number;
-    descricao: string;
-    valor: number;
-}
-
-  export interface Marca {
-    id: number;
-    descricao: string;
-}
-
-  export interface Modelo {
-    id: number;
-    id_marca: number;
-    descricao: string;
-  
-}
-
-
 export interface IItem {
-    id: string;
-    descricao: string;
-    id_marca: string;
+  id: string;
+  descricao: string;
+  id_marca: string;
 }
+
+  export type Foto = {
+    id: string;
+    url: string;
+};
