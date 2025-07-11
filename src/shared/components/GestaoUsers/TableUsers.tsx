@@ -1,5 +1,4 @@
 import React from 'react'
-import {ICadastroUsuarioFormProps} from '../../types/Cadastro_Usuario/types'
 import useUsuariosData from '../../hooks/ExibicaoUsers/useUsuariosData'
 import { Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 

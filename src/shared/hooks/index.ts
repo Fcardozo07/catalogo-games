@@ -1,1 +1,1 @@
-export {};
+export * from './lista_acessorios/useEditarAcessoriosData'
