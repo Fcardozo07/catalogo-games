@@ -139,6 +139,12 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({children}) => {
                         icon="category"
                         label="Cadastro de Modelos"
                         onClick={smdown ? toggleDrawerOpen : undefined}
+                        />                        
+                        <ListItemLink
+                        to="/gestao-users"
+                        icon="person"
+                        label="Gestão de Usuários"
+                        onClick={smdown ? toggleDrawerOpen : undefined}
                         />
                     </List>
                     </Collapse>

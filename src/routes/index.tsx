@@ -14,6 +14,7 @@ import { TelaLogin } from "../pages/tela_login/Tela_Login";
 import { Tela_Cadastro_User } from "../pages/tela_cadastro_user/Tela_Cadastro_User";
 import { TelaEditarUser } from "../pages/TelaEditaUser/TelaEditarUser";
 import ProtectedRoute from "../shared/midlleware/ProtectedRoute";
+import TelaGestaoUsers from "../pages/TelaGestaoUsers/TelaGestaoUsers";
 
 
 export const AppRoutes = () => {
@@ -64,7 +65,9 @@ export const AppRoutes = () => {
                 <Route path="/lista-marcas" element={<ListaMarcas/>}/>         
                 <Route path="/lista-modelos" element={<ListaModelos/>}/>
                 <Route path="/editar-marca" element={<EditarMarca/>}/>
-                <Route path="/editar-modelo" element={<EditaModelo/>}/>     
+                <Route path="/editar-modelo" element={<EditaModelo/>}/>
+                <Route path="/gestao-users" element={<TelaGestaoUsers/>}/>     
+
             </Route>
 
             <Route path="tela-login" element={<TelaLogin/>}/>

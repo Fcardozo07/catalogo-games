@@ -12,11 +12,12 @@ export * from "./lista_acessorios/EditarAcessorios";
 export * from "./lista_consoles/EditarConsoles";
 export * from "./lista_jogos/EditarJogos";
 export * from "./lista_marcas/ListaMarcas"
-export * from "./lista_marcas/NovaMarca"
-export * from "./lista_modelos/ListaModelos"
-export * from "./lista_modelos/NovoModelo"
-export * from "./lista_modelos/EditaModelo"
-export * from "./lista_marcas/EditarMarca"
+export * from "./lista_marcas/NovaMarca";
+export * from "./lista_modelos/ListaModelos";
+export * from "./lista_modelos/NovoModelo";
+export * from "./lista_modelos/EditaModelo";
+export * from "./lista_marcas/EditarMarca";
+export * from "./TelaGestaoUsers/TelaGestaoUsers"
 
 
 

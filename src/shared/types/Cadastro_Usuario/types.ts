@@ -1,3 +1,5 @@
+
+
 export interface ICadastroUsuarioFormProps {
   nome: string;
   setNome: (value: string) => void;
@@ -12,4 +14,13 @@ export interface ICadastroUsuarioFormProps {
   onSubmit: (fotoFile?: File | null) => Promise<void>;
   imagem: File | null;
   setImagem: (file: File) => void;
+
+}
+
+
+export type Usuario = {
+  id:number,
+  nome: String,
+  email: string,
+  perfil:string
 }

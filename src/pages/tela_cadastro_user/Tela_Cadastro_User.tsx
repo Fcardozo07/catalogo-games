@@ -95,7 +95,9 @@ const{
         setErro={setErro}
         onSubmit={() => handleCadastrar(imagem)} // 👈 passa a imagem aqui
         imagem={imagem}          // 👈 adiciona aqui
-        setImagem={setImagem}  
+        setImagem={setImagem}
+        
+                
         />
       </Container>
     </Box>
