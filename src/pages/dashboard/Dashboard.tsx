@@ -56,10 +56,6 @@ const renderizarFabricante = (fabricante: string | undefined) => {
   );
 };
 
-
-
-
-
 const fabricantePorId: { [key: number]: string } = {
   1: "nintendo",
   2: "sega",
@@ -91,11 +87,7 @@ export const Dashboard = () => {
   const [modelos, setModelos] = useState<{ id: number; descricao: string }[]>([]);
   const [descricaoModelo, setDescricaoModelo] = useState(null);
   const { user } = useAuthContext();
-  
-
-
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
  
   useEffect(() => {
   const buscarDadosDashboard = async () => {

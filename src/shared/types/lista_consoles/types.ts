@@ -71,7 +71,7 @@ export interface IFormNovoConsoleProps {
   marcas: Array<{ id: string; descricao: string }>;
   modelos: Array<{ id: string; descricao: string; id_marca: string }>;
   consoles: Array<{ id: string; descricao: string }>;
-  fotos: string[];
+  fotos: Foto[];
   imagem: File | null;
   setImagem: React.Dispatch<React.SetStateAction<File | null>>;
   handleUploadImagem: () => void;
@@ -93,3 +93,4 @@ export interface IItem {
     id: string;
     url: string;
 };
+

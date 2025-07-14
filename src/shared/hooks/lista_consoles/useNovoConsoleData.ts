@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IItem } from "../../types/lista_consoles/types";
+import { Foto, IItem } from "../../types/lista_consoles/types";
 import { useAuthContext } from "../../contexts/AuthContext";
 import api from "../../services/axios";
 
@@ -15,7 +15,7 @@ export const useNovoConsoleData = () => {
   const [id_marca, setMarca] = useState("");
   const [id_modelo, setModelo] = useState("");
   const [tipo, setTipo] = useState("");
-  const [fotos, setFotos] = useState<string[]>([]);
+  const [fotos, setFotos] = useState<Foto[]>([]);
   const [botaoSalvarDesabilitado, setBotaoSalvarDesabilitado] = useState(false);
   const [id_console, setConsole] = useState("");
   const [consoles, setConsoles] = useState<IItem[]>([]);
@@ -104,23 +104,22 @@ export const useNovoConsoleData = () => {
     navigate("/lista-consoles");
   }
 
-  const carregarImagens = async () => {
-    if (!idConsoleCriado) return;
-  
-    try {
-      console.log("Buscando fotos para o console com ID:", idConsoleCriado);
-      const response = await api.get(`/fotosConsole/console/${idConsoleCriado}`);
-      console.log("Resposta da API:", response.data);
-  
-      const baseUrl = 'http://localhost:3003/uploads/';
-      const imagens = response.data.map((foto: any) => `${baseUrl}${foto.filename}`);
-      console.log("Imagens geradas:", imagens);
-  
-      setFotos(imagens);
-    } catch (error) {
-      console.error("Erro ao carregar imagens:", error);
-    }
-  };
+const carregarImagens = async () => {
+  if (!idConsoleCriado) return;
+
+  try {
+    const response = await api.get(`/fotosConsole/console/${idConsoleCriado}`);
+    const baseUrl = 'http://localhost:3003/uploads/';
+    const imagens = response.data.map((foto: any) => ({
+      id: foto.id,
+      url: `${baseUrl}${foto.filename}`,
+    }));
+    setFotos(imagens);
+  } catch (error) {
+    console.error("Erro ao carregar imagens:", error);
+  }
+};
+
     
     return {
   descricao,

@@ -157,14 +157,15 @@ export const FormNovoConsole: React.FC<IFormNovoConsoleProps> = ({
                     <Container sx={{ mt: 4 }}>
                         <Typography variant="h6" gutterBottom>Imagens do Console</Typography>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-                            {fotos.map((url, idx) => (
-                                <img
-                                    key={idx}
-                                    src={url}
-                                    alt={`Console ${idx}`}
-                                    style={{ width: 150, height: 150, objectFit: 'cover', borderRadius: 8 }}
-                                />
-                            ))}
+                  {fotos.map((foto, idx) => (
+                    <img
+                      key={foto.id}
+                      src={foto.url}
+                      alt={`Console ${idx}`}
+                      style={{ width: 150, height: 150, objectFit: 'cover', borderRadius: 8 }}
+                    />
+                  ))}
+
                         </div>
                     </Container>
                 )}

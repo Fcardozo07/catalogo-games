@@ -190,18 +190,18 @@ export const FormEditarConsole: React.FC<IFormEditarConsoleProps> = ({
         )}
                                         
 </form>
-            <Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="md" fullWidth>
-                        <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            {imagemSelecionada && (
-                            <img
-                                src={imagemSelecionada}
-                                alt="Imagem ampliada"
-                                style={{ maxWidth: "100%", maxHeight: "80vh", borderRadius: 8 }}
-                            />
-                            )}
-                        </DialogContent>
-                        </Dialog>
-                </Container>
+<Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="md" fullWidth>
+            <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                {imagemSelecionada && (
+                <img
+                    src={imagemSelecionada}
+                    alt="Imagem ampliada"
+                    style={{ maxWidth: "100%", maxHeight: "80vh", borderRadius: 8 }}
+                />
+                )}
+            </DialogContent>
+            </Dialog>
+    </Container>
     )
     
 }
