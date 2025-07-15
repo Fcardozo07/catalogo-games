@@ -1,45 +1,17 @@
-import { useTheme } from "@mui/material";
 import { Box, Container, GlobalStyles, Typography, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useAppThemeContext } from "../../shared/contexts";
-
 import { LayoutBaseDePaginas } from "../../shared/layouts/LayoutBaseDePaginas";
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { EditUsuarioForm } from "../../shared/components/EditUsuarioForm/EditUsuarioForm";
-import useEditUsuarioData from "../../shared/hooks/EditarUsuario/useEditUsuarioData";
+
 
 export const TelaEditarUser = () => {
-  // ✅ Hook de edição de usuário (já inclui update + upload foto)
-  const {
-    nome,
-    setNome,
-    email,
-    setEmail,
-    senha,
-    setSenha,
-    senhaRepetida,
-    setSenhaRepetida,
-    erro,
-    setErro,
-    handleEditar,
-    imagem,
-    setImagem,
-  } = useEditUsuarioData();
+ 
 
-  // 🎨 Theme
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-  // 🧭 Navegação
+  // // 🧭 Navegação
   const navigate = useNavigate();
 
-  // Menu lateral (não utilizado diretamente aqui, mas mantido caso precise)
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const toggleDrawer = (open: boolean) => () => setDrawerOpen(open);
-
-  // Theme context (botão de alternar tema)
-  const { toggleTheme } = useAppThemeContext();
+  
 
   return (
     <LayoutBaseDePaginas
